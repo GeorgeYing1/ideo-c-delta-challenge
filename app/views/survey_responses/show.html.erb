@@ -14,6 +14,15 @@
         <%= Question.count %>
         questions
       </div>
+      <div class="panel-body">
+        <%CreativeQuality.all.each do |cq| %>
+        <strong>
+          <%= cq.name %>
+        </strong>
+          <li>Raw score: <%= @raw_scores[cq.id] %></li>
+          <li>Max score: <%= @max_scores[cq.id] %></li>
+        <%end%>
+      </div>
     </div>
 
     <hr>
