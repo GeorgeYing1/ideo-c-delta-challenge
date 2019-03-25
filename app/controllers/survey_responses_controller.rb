@@ -14,7 +14,7 @@ class SurveyResponsesController < ApplicationController
     @survey_response.answers.each do |answer|
       @raw_scores[answer.question_choice.creative_quality_id] += answer.question_choice.score
     end
-    CreativeQuality.all.each do |cr|
+    CreativeQuality.find_each do |cr|
       all_related_question_choices = QuestionChoice.select('max(score) as score').where(creative_quality_id: cr.id).group(:question_id,:creative_quality_id)
       all_related_question_choices.each do |arqc|
         @max_scores[cr.id] += arqc.score
