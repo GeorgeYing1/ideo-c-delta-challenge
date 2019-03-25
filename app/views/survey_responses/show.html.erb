@@ -14,21 +14,39 @@
         <%= Question.count %>
         questions
       </div>
+      <div class="panel-body">
+        <%CreativeQuality.all.each do |cq| %>
+        <strong>
+          <%= cq.name %>
+        </strong>
+          <li>Raw score: <%= @raw_scores[cq.id] %></li>
+          <li>Max score: <%= @max_scores[cq.id] %></li>
+        <%end%>
+      </div>
     </div>
 
     <hr>
 
     <% @survey_response.answers.each do |answer| %>
       <%= render 'questions/header', question: answer.question %>
-
       <table class="table table-bordered">
         <% answer.question.question_choices.each do |question_choice| %>
           <tr>
             <td>
               <% if question_choice == answer.question_choice %>
-                <strong>
-                  <%= question_choice.text %>
-                </strong>
+                <%if question_choice.score > 0 %>
+                    <strong class="text-success">
+                      <%= question_choice.text %> <%= question_choice.score%>
+                    </strong>
+                <%elsif question_choice.score < 0%>
+                    <strong class="text-danger">
+                      <%= question_choice.text %> <%= question_choice.score%>
+                    </strong>
+                <%else%>
+                    <strong>
+                      <%= question_choice.text %>
+                    </strong>
+                <%end%>
               <% else %>
                 <span class="text-muted">
                   <%= question_choice.text %>

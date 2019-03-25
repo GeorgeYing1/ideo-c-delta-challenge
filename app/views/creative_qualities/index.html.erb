@@ -17,8 +17,8 @@
               <div class="quality quality-<%= creative_quality.name %>"></div>
 
               <div class="score">
-                <small>your score:</small>
-                &mdash;
+                <small>your score: </small>
+                <%= @normalized_scores[creative_quality.id] %>
               </div>
 
               <p>
